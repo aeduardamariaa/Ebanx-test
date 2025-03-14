@@ -18,4 +18,14 @@ class Account extends Model
         'id', 
         'balance'
     ];
+
+    public function originTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'origin');
+    }
+
+    public function destinationTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'destination');
+    }
 }
