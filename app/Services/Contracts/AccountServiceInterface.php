@@ -7,5 +7,5 @@ use App\Http\Resources\CreateAccountResource;
 
 interface AccountServiceInterface
 {
-    public function createAccount(CreateAccountRequest $data) : CreateAccountResource;
+    public function createAccount(CreateAccountRequest $data): CreateAccountResource;
 }
