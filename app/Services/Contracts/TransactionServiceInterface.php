@@ -9,7 +9,7 @@ use App\Http\Resources\DepositResource;
 use App\Http\Resources\WithdrawResource;
 use App\Http\Resources\TransferResource;
 
-interface AccountServiceInterface
+interface TransactionServiceInterface
 {
     public function deposit(DepositRequest $data): DepositResource;
     public function withdraw(WithdrawRequest $data): WithdrawResource;
