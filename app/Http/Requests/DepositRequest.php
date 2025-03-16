@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class DepositRequest extends FormRequest
 {
@@ -14,6 +16,13 @@ class DepositRequest extends FormRequest
         return true;
     }
 
+    protected function failedValidation(Validator $validator): void
+    {
+        throw new HttpResponseException(response()->json([
+            'errors' => $validator->errors(),
+        ], 422));
+    }
+    
     /**
      * Get the validation rules that apply to the request.
      *

@@ -2,19 +2,46 @@
 
 namespace App\Services;
 
-use App\Http\Requests\CreateAccountRequest;
 use App\Http\Resources\CreateAccountResource;
+use App\Models\Account;
+use App\Models\Transaction;
 use App\Services\Contracts\AccountServiceInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class AccountService implements AccountServiceInterface
 {
-    public function createAccount(CreateAccountRequest $data): JsonResponse
+    public function createAccount(array $data): JsonResponse
     {
+        DB::beginTransaction();
+        
         try {
-            return response()->json(201);
+            $account = Account::create([
+                'id' => $data['destination'],
+                'balance' => $data['amount']
+            ]);
+
+            Transaction::create([
+                'type' => 'deposit', 
+                'amount' => $data['amount'], 
+                'destination' => $data['destination']
+            ]);
+
+            DB::commit();
+
+            return response()->json(
+                new CreateAccountResource($account), 
+                201
+            );
+
         } catch (\Exception $e) {
-            return response()->json(201);
+
+            DB::rollBack();
+
+            return response()->json(
+                ['Account already exists'],
+                400
+            );
         }
     }
 }
