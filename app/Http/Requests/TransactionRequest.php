@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class DepositRequest extends FormRequest
+class TransactionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,9 +31,10 @@ class DepositRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required|string|in:deposit',
-            'destination' => 'required|string|max:3',
+            'type' => 'required|string|in:transfer,deposit,withdraw',
+            'origin' => 'nullable|string|max:3',
             'amount' => 'required|numeric',
+            'destination' => 'nullable|string|max:3',
         ];
     }
 }

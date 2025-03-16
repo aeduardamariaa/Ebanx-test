@@ -13,6 +13,30 @@ use Illuminate\Support\Facades\DB;
 
 class TransactionService implements TransactionServiceInterface
 {
+    public function handleTransaction(array $data): JsonResponse 
+    {
+        if (!isset($data['type'])) {
+            return response()->json(['error' => 'Transaction type is required'], 400);
+        }
+    
+        switch ($data['type']) {
+            case 'deposit':
+                return $this->deposit($data);
+    
+            case 'withdraw':
+                return $this->withdraw($data);
+    
+            case 'transfer':
+                return $this->transfer($data);
+    
+            default:
+                return response()->json(
+                    'Invalid transaction type', 
+                    400
+                );
+        }
+    }
+
     public function deposit(array $data): JsonResponse
     {
         $destinationAccount = Account::find($data['destination']);
@@ -20,14 +44,21 @@ class TransactionService implements TransactionServiceInterface
         DB::beginTransaction();
         
         try {
+            if (!$destinationAccount) {
+                $destinationAccount = Account::create([
+                    'id' => $data['destination'],
+                    'balance' => $data['amount']
+                ]);
+            } else {
+                $destinationAccount->balance += $data['amount'];
+                $destinationAccount->save();
+            }
+
             Transaction::create([
                 'type' => $data['type'],
                 'amount' => $data['amount'], 
                 'destination' => $data['destination']
             ]);
-
-            $destinationAccount->balance += $data['amount'];
-            $destinationAccount->save();
 
             DB::commit();
 
