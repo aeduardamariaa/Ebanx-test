@@ -2,9 +2,9 @@
 
 namespace App\Services\Contracts;
 
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 interface BalanceServiceInterface
 {
-    public function getBalance($accountId = null): JsonResponse;
+    public function getBalance($accountId = null): Response;
 }

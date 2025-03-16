@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TransactionRequest;
 use App\Services\Contracts\TransactionServiceInterface;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class TransactionController extends Controller
 {
@@ -14,15 +14,8 @@ class TransactionController extends Controller
         $this->transactionService = $transactionService;
     }
 
-    public function handleTransaction(TransactionRequest $request): JsonResponse
+    public function handleTransaction(TransactionRequest $request): Response
     {
         return $this->transactionService->handleTransaction($request->validated());
-    }
-
-    public function getBalance(): JsonResponse
-    {
-        $accountId = request()->query('account_id');
-
-        return $this->transactionService->getBalance($accountId);
     }
 }

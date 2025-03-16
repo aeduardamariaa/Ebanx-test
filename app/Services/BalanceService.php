@@ -4,24 +4,18 @@ namespace App\Services;
 
 use App\Models\Account;
 use App\Services\Contracts\BalanceServiceInterface;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class BalanceService implements BalanceServiceInterface
 {
-    public function getBalance($accountId = null): JsonResponse
+    public function getBalance($accountId = null): Response
     {
         $account = Account::find($accountId)->first();
 
         if (!$account) {
-            return response()->json(
-                0, 
-                404
-            );
+            return response()->make(0, 404);
         }
 
-        return response()->json(
-            $account->balance, 
-            200
-        ); 
+        return response()->make($account->balance, 200);
     }
 }

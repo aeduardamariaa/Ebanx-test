@@ -2,9 +2,9 @@
 
 namespace App\Services\Contracts;
 
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 interface ResetServiceInterface
 {
-    public function reset(): JsonResponse;
+    public function reset(): Response;
 }
