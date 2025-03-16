@@ -16,12 +16,12 @@ class TransferResource extends JsonResource
     {
         return [
             'origin' => [
-                'id' => (string) $this->origin_id,
-                'balance' => (float) $this->origin_balance,
+                'id' => (string) $this->resource->origin->id,
+                'balance' => (float) $this->resource->origin->balance,
             ],
             'destination' => [
-                'id' => (string) $this->destination_id,
-                'balance' => (float) $this->destination_balance,
+                'id' => (string) $this->resource->destination->id,
+                'balance' => (float) $this->resource->destination->balance,
             ],
         ];
     }
