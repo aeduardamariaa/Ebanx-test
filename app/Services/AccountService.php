@@ -39,7 +39,7 @@ class AccountService implements AccountServiceInterface
             DB::rollBack();
 
             return response()->json(
-                ['Account already exists'],
+                $e->getMessage(),
                 400
             );
         }
