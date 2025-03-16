@@ -9,42 +9,43 @@ use App\Http\Resources\DepositResource;
 use App\Http\Resources\TransferResource;
 use App\Http\Resources\WithdrawResource;
 use App\Services\Contracts\TransactionServiceInterface;
+use Illuminate\Http\JsonResponse;
 
 class TransactionService implements TransactionServiceInterface
 {
-    public function deposit(DepositRequest $data): DepositResource
+    public function deposit(DepositRequest $data): JsonResponse
     {
         try {
-            return new DepositResource("100", 3);
+            return response()->json(201);
         } catch (\Exception $e) {
-            return new DepositResource("100", 3);
+            return response()->json(201);
         }
     }
 
-    public function withdraw(WithdrawRequest $data): WithdrawResource
+    public function withdraw(WithdrawRequest $data): JsonResponse
     {
         try {
-            return new WithdrawResource("100", 3);
+            return response()->json(201);
         } catch (\Exception $e) {
-            return new WithdrawResource("100", 3);
+            return response()->json(201);
         }
     }
 
-    public function transfer(TransferRequest $data): TransferResource
+    public function transfer(TransferRequest $data): JsonResponse
     {
         try {
-            return new TransferResource("100", 3);
+            return response()->json(201);
         } catch (\Exception $e) {
-            return new TransferResource("100", 3);
+            return response()->json(201);
         }
     }
 
-    public function getBalance($account_id = null): float
+    public function getBalance($accountId = null): JsonResponse
     {
         try {
-            return 0;
+            return response()->json(201);
         } catch (\Exception $e) {
-            return 0;
+            return response()->json(201);
         }
     }
 }
