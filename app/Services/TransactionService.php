@@ -37,7 +37,7 @@ class TransactionService implements TransactionServiceInterface
         }
     }
 
-    public function deposit(array $data): JsonResponse
+    private function deposit(array $data): JsonResponse
     {
         $destinationAccount = Account::find($data['destination']);
 
@@ -78,7 +78,7 @@ class TransactionService implements TransactionServiceInterface
         }
     }
 
-    public function withdraw(array $data): JsonResponse
+    private function withdraw(array $data): JsonResponse
     {
         $originAccount = Account::find($data['origin']);
  
@@ -127,7 +127,7 @@ class TransactionService implements TransactionServiceInterface
     }
     
 
-    public function transfer(array $data): JsonResponse
+    private function transfer(array $data): JsonResponse
     {
         $originAccount = Account::find($data['origin']);
  
@@ -190,22 +190,5 @@ class TransactionService implements TransactionServiceInterface
                 400
             );
         }
-    }
-
-    public function getBalance($accountId = null): JsonResponse
-    {
-        $account = Account::find($accountId);
-
-        if (!$account) {
-            return response()->json(
-                0, 
-                404
-            );
-        }
-
-        return response()->json(
-            $account->balance, 
-            200
-        ); 
     }
 }

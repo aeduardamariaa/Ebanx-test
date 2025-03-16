@@ -16,6 +16,6 @@ class ResetController extends Controller
 
     public function reset(Request $request): JsonResponse
     {
-        return $this->resetService->reset($request->validated());
+        return $this->resetService->reset($request->all());
     }
 }
